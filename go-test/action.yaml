@@ -1,0 +1,11 @@
+---
+name: "Go - Test"
+description: |
+  This action runs `go test` over the working tree and then verifies
+  that there are no differences from running the tool.
+runs:
+  using: "composite"
+  steps:
+    - name: "Run Go Build"
+      shell: "bash"
+      run: "go test -race ./..."

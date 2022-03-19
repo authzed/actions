@@ -1,0 +1,11 @@
+---
+name: "CodeQL - Analyze"
+description: "This action analyzes the working tree with CodeQL."
+runs:
+  using: "composite"
+  steps:
+    - uses: "github/codeql-action/init@v1"
+      with:
+        languages: "${{ matrix.language }}"
+    - uses: "github/codeql-action/autobuild@v1"
+    - uses: "github/codeql-action/analyze@v1"

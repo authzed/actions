@@ -1,0 +1,12 @@
+---
+name: "Go - Linting"
+description: "This action runs golangci-lint over the working tree."
+runs:
+  using: "composite"
+  steps:
+    - uses: "golangci/golangci-lint-action@v2"
+      with:
+        version: "v1.43"
+        skip-go-installation: true
+        skip-pkg-cache: true
+        skip-build-cache: false

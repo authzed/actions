@@ -1,0 +1,12 @@
+---
+name: "Markdown - Lint"
+description: |
+  This action runs `markdownlint` over the working tree and then verifies
+  that there are no differences from running the tool.
+runs:
+  using: "composite"
+  steps:
+    - uses: "nosborn/github-action-markdown-cli@v2.0.0"
+      with:
+        files: "."
+        config_file: ".markdownlint.yaml"

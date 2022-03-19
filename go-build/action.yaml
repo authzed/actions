@@ -1,0 +1,11 @@
+---
+name: "Go - Build"
+description: |
+  This action runs `go build` over the cmd directory and then verifies
+  that there are no differences from running the tool.
+runs:
+  using: "composite"
+  steps:
+    - name: "Run Go Build"
+      shell: "bash"
+      run: "go build ./cmd/..."

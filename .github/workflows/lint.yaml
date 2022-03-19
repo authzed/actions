@@ -1,0 +1,16 @@
+---
+name: "Lint"
+on:  # yamllint disable-line rule:truthy
+  push:
+    branches:
+      - "main"
+  pull_request:
+    branches: ["*"]
+jobs:
+  lint:
+    name: "Markdown - Lint"
+    runs-on: "ubuntu-latest"
+    steps:
+      - uses: "actions/checkout@v3"
+      - uses: "authzed/actions/markdown-lint@main"
+      - uses: "authzed/actions/yaml-lint@main"

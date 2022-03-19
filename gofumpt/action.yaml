@@ -1,0 +1,47 @@
+---
+name: "Go - Formatting"
+description: |
+  This action runs gofumpt over the working tree and then verifies
+  that there are no differences from running the tool.
+inputs:
+  version:
+    description: "The version of gofumpt used if it is not already installed."
+    default: "latest"
+    required: false
+runs:
+  using: "composite"
+  steps:
+    - name: "Install Gofumpt"
+      id: "gofumpt-install"
+      shell: "bash"
+      run: |
+        if which gofumpt > /dev/null; then
+          echo "found gofumpt version $(gofumpt --version)"
+          echo "::set-output name=version::$(gofumpt --version)"
+        elif
+          go install mvdan.cc/gofumpt@${{ inputs.version }}
+          echo "::set-output name=version::$(gofumpt --version)"
+        fi
+    - name: "Run Gofumpt"
+      shell: "bash"
+      run: |
+        # We limit the depth to 3 mostly to avoid go.mod files that get pulled into `third_party` like some hashicorp repos.
+        for dir in $(find . -name go.mod -maxdepth 3 -exec dirname {} \; ); do
+          echo "::group:: $dir"
+          pushd $dir
+          gofumpt ${{ inputs.args }} -w \
+            $(find . \
+            -path './vendor' -prune \
+            -o -path '*/third_party' -prune \
+            -o -name '*.pb.go' -prune \
+            -o -name '*.pb.gw.go' -prune \
+            -o -name 'wire_gen.go' -prune \
+            -o -name 'zz_generated*' -prune \
+            -o -type f -name '*.go' -print)
+          popd
+          echo ::endgroup::
+        done
+    - name: "Verify Gofumpt"
+      uses: "chainguard-dev/actions/nodiff@main"
+      with:
+        fixup-command: "gofumpt"

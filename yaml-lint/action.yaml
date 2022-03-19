@@ -1,0 +1,11 @@
+---
+name: "YAML - Lint"
+description: |
+  This action runs `yamllint` over the working tree and then verifies
+  that there are no differences from running the tool.
+runs:
+  using: "composite"
+  steps:
+    - uses: "bewuethr/yamllint-action@v1.1.1"
+      with:
+        config-file: ".yamllint"

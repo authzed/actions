@@ -1,0 +1,15 @@
+---
+name: "Go - Generate"
+description: |
+  This action runs `go generate` over the working tree and then verifies
+  that there are no differences from running the tool.
+runs:
+  using: "composite"
+  steps:
+    - name: "Run Go Generate"
+      shell: "bash"
+      run: "go generate ./..."
+    - name: "Verify Go Generate"
+      uses: "chainguard-dev/actions/nodiff@main"
+      with:
+        fixup-command: "go generate"
