@@ -1,0 +1,23 @@
+---
+name: "Buf - Generate"
+description: |
+  This action runs `./buf.gen.yaml` in the working tree and then verifies
+  that there are no differences from running the tool.
+inputs:
+  version:
+    description: "Buf version used to generate"
+    default: "1.1.0"
+    required: false
+runs:
+  using: "composite"
+  steps:
+    - uses: "bufbuild/buf-setup-action@v1"
+      with:
+        version: "${{ inputs.version }}"
+    - name: "Generate & Diff Protos"
+      shell: "bash"
+      run: "./buf.gen.yaml"
+    - name: "Verify Buf Generate"
+      uses: "chainguard-dev/actions/nodiff@main"
+      with:
+        fixup-command: "./buf.gen.yaml"
