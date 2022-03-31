@@ -1,20 +1,30 @@
 ---
 name: "Docker - Login"
 description: "This action runs `docker login` for various registries."
+inputs:
+  quayio_token:
+    description: "explicit passing of Quayio's robot secret"
+    required: true
+  github_token:
+    description: "explicit passing of the GITHUB_TOKEN secret"
+    required: true
+  dockerhub_token:
+    description: "explicit passing of Docker Hub's password secret"
+    required: true
 runs:
   using: "composite"
   steps:
     - uses: "docker/login-action@v1"
       with:
         registry: "quay.io"
-        username: "${{ secrets.QUAYIO_USER }}"
-        password: "${{ secrets.QUAYIO_PASSWORD }}"
+        username: "authzed+github_actions"
+        password: "${{ inputs.quayio_token }}"
     - uses: "docker/login-action@v1"
       with:
         registry: "ghcr.io"
         username: "${{ github.actor }}"
-        password: "${{ secrets.GITHUB_TOKEN }}"
+        password: "${{ inputs.github_token }}"
     - uses: "docker/login-action@v1"
       with:
-        username: "${{ secrets.DOCKERHUB_USER }}"
-        password: "${{ secrets.DOCKERHUB_ACCESS_TOKEN }}"
+        username: "authzedbot"
+        password: "${{ inputs.dockerhub_token }}"

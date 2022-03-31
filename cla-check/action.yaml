@@ -1,6 +1,13 @@
 ---
 name: "CLA - Check"
 description: "This action determines if commit authors have signed a CLA."
+inputs:
+  github_token:
+    description: "explicit passing of GITHUB_TOKEN secret"
+    required: true
+  cla_assistant_token:
+    description: "explicit passing of CLA_ASSISTANT_ACCESS_TOKEN secret"
+    required: true
 runs:
   using: "composite"
   steps:
@@ -8,8 +15,8 @@ runs:
       if: "(github.event.comment.body == 'recheck' || github.event.comment.body == 'I have read the CLA Document and I hereby sign the CLA') || github.event_name == 'pull_request_target'"
       uses: "cla-assistant/github-action@v2.1.3-beta"
       env:
-        GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-        PERSONAL_ACCESS_TOKEN: "${{ secrets.CLA_ASSISTANT_ACCESS_TOKEN }}"
+        GITHUB_TOKEN: "${{ inputs.github_token }}"
+        PERSONAL_ACCESS_TOKEN: "${{ inputs.cla_assistant_token }}"
       with:
         remote-organization-name: "authzed"
         remote-repository-name: "cla"
