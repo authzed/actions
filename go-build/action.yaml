@@ -3,9 +3,15 @@ name: "Go - Build"
 description: |
   This action runs `go build` over the cmd directory and then verifies
   that there are no differences from running the tool.
+inputs:
+  working_directory:
+    description: "The directory with the root of the project"
+    default: "."
+    required: false
 runs:
   using: "composite"
   steps:
     - name: "Run Go Build"
       shell: "bash"
+      working-directory: "${{ inputs.working_directory }}"
       run: "go build ./cmd/..."

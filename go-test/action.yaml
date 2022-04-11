@@ -4,6 +4,10 @@ description: |
   This action runs `go test` over the working tree and then verifies
   that there are no differences from running the tool.
 inputs:
+  working_directory:
+    description: "The directory with the root of the project"
+    default: "."
+    required: false
   timeout:
     description: "Maximum duration before the test suite times out."
     default: "20m"
@@ -17,4 +21,5 @@ runs:
   steps:
     - name: "Run Go Build"
       shell: "bash"
+      working-directory: "${{ inputs.working_directory }}"
       run: "go test -race --tags '${{ inputs.tags }}' -timeout '${{ inputs.timeout }}' ./..."

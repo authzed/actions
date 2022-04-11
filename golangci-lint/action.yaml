@@ -1,11 +1,17 @@
 ---
 name: "Go - Linting"
 description: "This action runs golangci-lint over the working tree."
+inputs:
+  working_directory:
+    description: "The directory with the root of the project"
+    default: "."
+    required: false
 runs:
   using: "composite"
   steps:
     - uses: "golangci/golangci-lint-action@v3"
       with:
+        working-directory: "${{ inputs.working_directory }}"
         version: "v1.45"
         skip-go-installation: true
         skip-pkg-cache: true

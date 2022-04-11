@@ -3,10 +3,15 @@ name: "Markdown - Lint"
 description: |
   This action runs `markdownlint` over the working tree and then verifies
   that there are no differences from running the tool.
+inputs:
+  working_directory:
+    description: "The directory with the root of the project"
+    default: "."
+    required: false
 runs:
   using: "composite"
   steps:
-    - uses: "nosborn/github-action-markdown-cli@v2.0.0"
+    - uses: "avto-dev/markdown-lint@v1"
       with:
-        files: "."
-        config_file: ".markdownlint.yaml"
+        config: "${{ inputs.working_directory }}/.markdownlint.yaml"
+        args: "${{ inputs.working_directory }}"
