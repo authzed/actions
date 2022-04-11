@@ -13,6 +13,5 @@ runs:
       with:
         working-directory: "${{ inputs.working_directory }}"
         version: "v1.45"
-        skip-go-installation: true
         skip-pkg-cache: true
         skip-build-cache: false
