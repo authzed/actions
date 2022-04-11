@@ -13,5 +13,5 @@ runs:
   steps:
     - uses: "ibiqlik/action-yamllint@v3"
       with:
-        files_or_dir: "${{ inputs.working_directory }}"
+        file_or_dir: "${{ inputs.working_directory }}"
         config_file: "${{ inputs.working_directory }}/.yamllint"
