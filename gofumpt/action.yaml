@@ -8,12 +8,17 @@ inputs:
     description: "The version of gofumpt used if it is not already installed."
     default: "latest"
     required: false
+  working_directory:
+    description: "The directory with the root of the project"
+    default: "."
+    required: false
 runs:
   using: "composite"
   steps:
     - name: "Install Gofumpt"
       id: "gofumpt-install"
       shell: "bash"
+      working-directory: "${{ inputs.working_directory }}"
       run: |
         if which gofumpt > /dev/null; then
           echo "found gofumpt version $(gofumpt --version)"
@@ -24,6 +29,7 @@ runs:
         fi
     - name: "Run Gofumpt"
       shell: "bash"
+      working-directory: "${{ inputs.working_directory }}"
       run: |
         # We limit the depth to 3 mostly to avoid go.mod files that get pulled into `third_party` like some hashicorp repos.
         for dir in $(find . -name go.mod -maxdepth 3 -exec dirname {} \; ); do

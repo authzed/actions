@@ -3,9 +3,15 @@ name: "YAML - Lint"
 description: |
   This action runs `yamllint` over the working tree and then verifies
   that there are no differences from running the tool.
+inputs:
+  working_directory:
+    description: "The directory with the root of the project"
+    default: "."
+    required: false
 runs:
   using: "composite"
   steps:
-    - uses: "bewuethr/yamllint-action@v1.1.1"
+    - uses: "ibiqlik/action-yamllint@v3"
       with:
-        config-file: ".yamllint"
+        files_or_dir: "${{ inputs.working_directory }}"
+        config_file: "${{ inputs.working_directory }}/.yamllint"

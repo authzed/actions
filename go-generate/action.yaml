@@ -3,11 +3,17 @@ name: "Go - Generate"
 description: |
   This action runs `go generate` over the working tree and then verifies
   that there are no differences from running the tool.
+inputs:
+  working_directory:
+    description: "The directory with the root of the project"
+    default: "."
+    required: false
 runs:
   using: "composite"
   steps:
     - name: "Run Go Generate"
       shell: "bash"
+      working-directory: "${{ inputs.working_directory }}"
       run: "go generate ./..."
     - name: "Verify Go Generate"
       uses: "chainguard-dev/actions/nodiff@main"
