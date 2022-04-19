@@ -18,12 +18,22 @@ inputs:
     description: "Path to the Dockerfile"
     default: "Dockerfile"
     required: false
+  buildx:
+    description: "Enable or disable buildx"
+    default: "true"
+    required: false
+  qemu:
+    description: "Enable or disable qemu"
+    default: "true"
+    required: false
 
 runs:
   using: "composite"
   steps:
     - uses: "docker/setup-qemu-action@v1"
+      if: "inputs.qemu == 'true'"
     - uses: "docker/setup-buildx-action@v1"
+      if: "inputs.buildx == 'true'"
       with:
         driver-opts: "image=moby/buildkit:master"
     - uses: "docker/build-push-action@v2"
