@@ -8,7 +8,7 @@ inputs:
     required: false
   tags:
     description: "List of tags"
-    default: "latest"
+    default: "${{ github.repository }}:latest"
     required: false
   context:
     description: "Build's context is the set of files located in the specified PATH or URL"
