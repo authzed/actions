@@ -16,10 +16,14 @@ inputs:
     description: "Build tags passed to `go test`"
     default: ""
     required: false
+  race:
+    description: "If false, race detection is disabled in testing"
+    default: "true"
+    required: false
 runs:
   using: "composite"
   steps:
     - name: "Run Go Build"
       shell: "bash"
       working-directory: "${{ inputs.working_directory }}"
-      run: "go test --race --failfast --tags '${{ inputs.tags }}' -timeout '${{ inputs.timeout }}' ./..."
+      run: "go test --race '${{ inputs.race }}' --failfast --tags '${{ inputs.tags }}' -timeout '${{ inputs.timeout }}' ./..."
