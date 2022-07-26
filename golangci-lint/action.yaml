@@ -12,6 +12,6 @@ runs:
     - uses: "golangci/golangci-lint-action@v3"
       with:
         working-directory: "${{ inputs.working_directory }}"
-        version: "v1.45"
+        version: "v1.47"
         skip-pkg-cache: true
         skip-build-cache: false
