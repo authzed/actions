@@ -6,7 +6,7 @@ description: |
 inputs:
   version:
     description: "Buf version used to generate"
-    default: "1.3.1"
+    default: "1.7.0"
     required: false
 runs:
   using: "composite"
