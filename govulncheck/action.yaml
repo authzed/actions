@@ -1,0 +1,19 @@
+---
+name: "Go - Check for vulnerabilities"
+description: |
+  This action runs `govulncheck` in the working tree.
+inputs:
+  working_directory:
+    description: "The directory with the root of the project"
+    default: "."
+    required: false
+runs:
+  using: "composite"
+  steps:
+    - name: "Install govulncheck"
+      shell: "bash"
+      working-directory: "${{ inputs.working_directory }}"
+      run: "go install golang.org/x/vuln/cmd/govulncheck@latest"
+    - name: "Run govulncheck"
+      working-directory: "${{ inputs.working_directory }}"
+      run: "govulncheck ./..."
