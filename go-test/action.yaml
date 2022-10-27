@@ -26,4 +26,4 @@ runs:
     - name: "Run Go Build"
       shell: "bash"
       working-directory: "${{ inputs.working_directory }}"
-      run: "go test --race=${{ inputs.race }} --failfast --tags '${{ inputs.tags }}' -timeout '${{ inputs.timeout }}' ./..."
+      run: "go test --race=${{ inputs.race }} --failfast --tags '${{ inputs.tags }}' -count=1 -timeout '${{ inputs.timeout }}' ./..."
