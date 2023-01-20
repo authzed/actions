@@ -8,10 +8,15 @@ inputs:
     description: "Buf version used to generate"
     default: "1.7.0"
     required: false
+  github_token:
+    description: "explicit passing of GITHUB_TOKEN secret"
+    required: true
 runs:
   using: "composite"
   steps:
     - uses: "bufbuild/buf-setup-action@v1"
+      env:
+        GITHUB_TOKEN: "${{ inputs.github_token }}"
       with:
         version: "${{ inputs.version }}"
     - name: "Generate & Diff Protos"
