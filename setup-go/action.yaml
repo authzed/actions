@@ -1,0 +1,16 @@
+---
+name: "Setup Go environment"
+description: "Setup a Go environment and add it to the PATH (with caching!)"
+inputs:
+  go-version:
+    description: "The Go version to download (if necessary) and use. Supports semver spec and ranges."
+  go-version-file:
+    description: "Path to the go.mod or go.work file."
+runs:
+  using: "composite"
+  steps:
+    - uses: "actions/setup-go@v3"
+      with:
+        go-version: "${{ inputs.go-version }}"
+        go-version-file: "${{ inputs.go-version-file }}"
+        cache: "true"
