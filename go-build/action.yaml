@@ -14,4 +14,4 @@ runs:
     - name: "Run Go Build"
       shell: "bash"
       working-directory: "${{ inputs.working_directory }}"
-      run: "go build ./cmd/..."
+      run: "go mod download && go build ./cmd/..."
