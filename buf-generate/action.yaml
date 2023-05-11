@@ -6,7 +6,7 @@ description: |
 inputs:
   version:
     description: "Buf version used to generate"
-    default: "1.7.0"
+    default: "1.18.0"
     required: false
   github_token:
     description: "explicit passing of GITHUB_TOKEN secret"
