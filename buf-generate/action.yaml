@@ -15,10 +15,9 @@ runs:
   using: "composite"
   steps:
     - uses: "bufbuild/buf-setup-action@v1"
-      env:
-        GITHUB_TOKEN: "${{ inputs.github_token }}"
       with:
         version: "${{ inputs.version }}"
+        github_token: "${{ inputs.github_token }}"
     - name: "Generate & Diff Protos"
       shell: "bash"
       run: "./buf.gen.yaml"
