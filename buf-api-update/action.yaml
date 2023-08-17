@@ -1,0 +1,21 @@
+name: "Client API Update"
+description: "Updates a buf spec file with a new version of the API, if applicable"
+inputs:
+  api-commit:
+    description: "The buf.build commit tag for the new version of the API"
+    required: true
+    default: ""
+  spec-path:
+    description: "The path to the buf file containing the version to be checked and updated"
+    required: false
+    default: "buf.gen.yaml"
+  file-format:
+    description: "The file format of the spec-path"
+    required: false
+    default: "generate-shell-script" # One of: "generate-shell-script", "gradle"
+outputs:
+  updated:
+    description: "'true' if the API was updated"
+runs:
+  using: "node16"
+  main: "index.js"
