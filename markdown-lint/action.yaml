@@ -8,10 +8,14 @@ inputs:
     description: "The directory with the root of the project"
     default: "."
     required: false
+  args:
+    description: "Additional arguments to markdown-lint"
+    default: ""
+    required: false
 runs:
   using: "composite"
   steps:
     - uses: "avto-dev/markdown-lint@v1"
       with:
         config: "${{ inputs.working_directory }}/.markdownlint.yaml"
-        args: "${{ inputs.working_directory }}"
+        args: "${{ inputs.working_directory }} ${{ inputs.args }}"
