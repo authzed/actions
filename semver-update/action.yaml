@@ -15,4 +15,4 @@ inputs:
     default: "minor" # One of: "major", "minor", "package", or a particular version (to set it explicitly)
 runs:
   using: "node16"
-  main: "index.js"
+  main: "lib/index.js"
