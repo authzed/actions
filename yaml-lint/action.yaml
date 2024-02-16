@@ -19,3 +19,5 @@ runs:
       with:
         file_or_dir: "${{ inputs.working_directory }}"
         config_file: "${{ inputs.working_directory }}/${{ inputs.config_file }}"
+      env:
+        TMPDIR: "${{ runner.temp }}"
