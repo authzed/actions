@@ -1,0 +1,14 @@
+---
+name: "Setup Mage"
+description: "Download and install Mage"
+inputs:
+  version:
+    description: "Version of Mage to install"
+    default: "1.15.0"
+    required: false
+runs:
+  using: "composite"
+  steps:
+    - uses: "grafana/action-setup-mage@v1"
+      with:
+        version: "${{ inputs.version }}"
