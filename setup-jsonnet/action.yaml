@@ -1,0 +1,14 @@
+---
+name: "Setup Go Jsonnet"
+description: "Download and install Go Jsonnet"
+inputs:
+  version:
+    description: "Version of Jsonnet to install. Default: `latest`"
+    required: false
+    default: "latest"
+runs:
+  using: "composite"
+  steps:
+    - uses: "zendesk/setup-jsonnet@v11"
+      with:
+        version: "${{ inputs.version }}"
