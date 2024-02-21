@@ -17,6 +17,6 @@ runs:
       with:
         working-directory: "${{ inputs.working_directory }}"
         args: "${{ inputs.args }}"
-        version: "v1.55.1"
+        version: "v1.56.2"
         skip-pkg-cache: true
         skip-build-cache: false
