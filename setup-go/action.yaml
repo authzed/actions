@@ -4,6 +4,7 @@ description: "Setup a Go environment and add it to the PATH (with caching!)"
 inputs:
   go-version:
     description: "The Go version to download (if necessary) and use. Supports semver spec and ranges."
+    default: "1.22.0"
   go-version-file:
     description: "Path to the go.mod or go.work file."
   cache-dependency-path:
