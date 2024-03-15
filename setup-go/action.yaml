@@ -17,7 +17,6 @@ runs:
   using: "composite"
   steps:
     - uses: "buildjet/setup-go@v4"
-      working-directory: "${{ inputs.working_directory }}"
       with:
         go-version: "${{ inputs.go-version }}"
         go-version-file: "${{ inputs.go-version-file }}"
