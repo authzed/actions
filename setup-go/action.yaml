@@ -9,15 +9,21 @@ inputs:
     description: "Path to the go.mod or go.work file."
   cache-dependency-path:
     description: "Used to specify the path to a dependency file - go.sum"
+  working_directory:
+    description: "The directory with the root of the project"
+    default: "."
+    required: "false"
 runs:
   using: "composite"
   steps:
     - uses: "buildjet/setup-go@v4"
+      working-directory: "${{ inputs.working_directory }}"
       with:
         go-version: "${{ inputs.go-version }}"
         go-version-file: "${{ inputs.go-version-file }}"
         cache-dependency-path: "${{ inputs.cache-dependency-path }}"
         cache: "true"
     - name: "Run Go Mod Download"
+      working-directory: "${{ inputs.working_directory }}"
       shell: "bash"
       run: "go mod download"
