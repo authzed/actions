@@ -9,6 +9,7 @@ inputs:
     description: "Path to the go.mod or go.work file."
   cache-dependency-path:
     description: "Used to specify the path to a dependency file - go.sum"
+    default: "**/go.sum"
   working_directory:
     description: "The directory with the root of the project"
     default: "."
