@@ -13,6 +13,10 @@ inputs:
     description: "The directory with the root of the project"
     default: "."
     required: false
+  ignore:
+    description: "The packages to ignore, if any"
+    default: "none"
+    required: false
 runs:
   using: "composite"
   steps:
@@ -29,4 +33,4 @@ runs:
     - name: "Run Go Licenses Check"
       shell: "bash"
       working-directory: "${{ inputs.working_directory }}"
-      run: "go-licenses check --include_tests ./..."
+      run: "go-licenses check --include_tests ./... --ignore ${{ inputs.ignore }}"
