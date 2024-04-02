@@ -10,6 +10,10 @@ inputs:
   cache-dependency-path:
     description: "Used to specify the path to a dependency file - go.sum"
     default: "**/go.sum"
+  download:
+    description: "Whether or not to run go mod download as part of setup"
+    default: "true"
+    required: false
   working_directory:
     description: "The directory with the root of the project"
     default: "."
@@ -24,6 +28,7 @@ runs:
         cache-dependency-path: "${{ inputs.cache-dependency-path }}"
         cache: "true"
     - name: "Run Go Mod Download"
+      if: "inputs.download == 'true'"
       working-directory: "${{ inputs.working_directory }}"
       shell: "bash"
       run: "go mod download"
