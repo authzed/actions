@@ -20,7 +20,7 @@ runs:
       with:
         remote-organization-name: "authzed"
         remote-repository-name: "cla"
-        path-to-signatures: "v1/signatures.json"
-        path-to-document: "https://github.com/authzed/cla/blob/main/v1/icla.md"
+        path-to-signatures: "v2/signatures.json"
+        path-to-document: "https://github.com/authzed/cla/blob/main/v2/icla.md"
         branch: "main"
         allowlist: "authzedbot,dependabot[bot],renovate-bot"
