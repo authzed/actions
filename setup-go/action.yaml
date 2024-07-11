@@ -14,6 +14,10 @@ inputs:
     description: "Whether or not to run go mod download as part of setup"
     default: "true"
     required: false
+  cache:
+    description: "Whether or not to cache across runs go module build caches"
+    default: "true"
+    required: false
   working_directory:
     description: "The directory with the root of the project"
     default: "."
@@ -26,7 +30,7 @@ runs:
         go-version: "${{ inputs.go-version }}"
         go-version-file: "${{ inputs.go-version-file }}"
         cache-dependency-path: "${{ inputs.cache-dependency-path }}"
-        cache: "true"
+        cache: "${{ inputs.cache }}"
     - name: "Run Go Mod Download"
       if: "inputs.download == 'true'"
       working-directory: "${{ inputs.working_directory }}"
