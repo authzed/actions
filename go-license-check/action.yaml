@@ -33,4 +33,4 @@ runs:
     - name: "Run Go Licenses Check"
       shell: "bash"
       working-directory: "${{ inputs.working_directory }}"
-      run: "go-licenses check --include_tests ./... --ignore ${{ inputs.ignore }}"
+      run: "go-licenses check --include_tests --ignore ${{ inputs.ignore }} ./..."
