@@ -2,10 +2,9 @@
   "name": "semver-update",
   "version": "1.0.0",
   "description": "",
-  "main": "lib/main.js",
+  "main": "dist/main.js",
   "scripts": {
-    "build": "tsc",
-    "pack": "ncc build",
+    "pack": "ncc build -s src/index.ts",
     "test": "jest"
   },
   "keywords": [],
