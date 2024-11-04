@@ -18,5 +18,5 @@ outputs:
   updated:
     description: "'true' if the API was updated"
 runs:
-  using: "node16"
-  main: "lib/index.js"
+  using: "node20"
+  main: "dist/index.js"
