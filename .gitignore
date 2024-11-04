@@ -1,2 +1,2 @@
-buf-api-update/node_modules/.bin/**
+buf-api-update/node_modules
 semver-update/node_modules/.bin/**
