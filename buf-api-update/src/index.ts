@@ -1,6 +1,6 @@
 import * as core from '@actions/core';
-import fs from 'fs';
-import util from 'util'
+import * as fs from 'fs';
+import * as util from 'util'
 import { FileFormatType, fileFormatHandlers } from './handlers';
 
 

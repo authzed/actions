@@ -6722,15 +6722,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -6739,33 +6730,31 @@ const core = __importStar(__nccwpck_require__(7484));
 const fs_1 = __importDefault(__nccwpck_require__(9896));
 const util_1 = __importDefault(__nccwpck_require__(9023));
 const updater_1 = __nccwpck_require__(322);
-function run() {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            const sourceFilePath = core.getInput('sourcefile-path');
-            if (!sourceFilePath) {
-                throw new Error(`missing source file path`);
-            }
-            const versionRegexStr = core.getInput('version-regex');
-            if (!versionRegexStr) {
-                throw new Error(`missing version regex`);
-            }
-            const versionChangeOption = core.getInput('version-change');
-            if (!versionChangeOption) {
-                throw new Error(`missing version change option`);
-            }
-            const versionRegex = new RegExp(versionRegexStr);
-            const readFile = util_1.default.promisify(fs_1.default.readFile);
-            const contents = yield readFile(sourceFilePath, 'utf8');
-            const updatedContents = (0, updater_1.performVersionUpdate)(versionRegex, contents, versionChangeOption);
-            const writeFile = util_1.default.promisify(fs_1.default.writeFile);
-            yield writeFile(sourceFilePath, updatedContents);
-            console.log(`successfully updated version`);
+async function run() {
+    try {
+        const sourceFilePath = core.getInput('sourcefile-path');
+        if (!sourceFilePath) {
+            throw new Error(`missing source file path`);
         }
-        catch (error) {
-            core.setFailed(error.message);
+        const versionRegexStr = core.getInput('version-regex');
+        if (!versionRegexStr) {
+            throw new Error(`missing version regex`);
         }
-    });
+        const versionChangeOption = core.getInput('version-change');
+        if (!versionChangeOption) {
+            throw new Error(`missing version change option`);
+        }
+        const versionRegex = new RegExp(versionRegexStr);
+        const readFile = util_1.default.promisify(fs_1.default.readFile);
+        const contents = await readFile(sourceFilePath, 'utf8');
+        const updatedContents = (0, updater_1.performVersionUpdate)(versionRegex, contents, versionChangeOption);
+        const writeFile = util_1.default.promisify(fs_1.default.writeFile);
+        await writeFile(sourceFilePath, updatedContents);
+        console.log(`successfully updated version`);
+    }
+    catch (error) {
+        core.setFailed(error.message);
+    }
 }
 run();
 

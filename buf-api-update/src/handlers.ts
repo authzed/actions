@@ -1,4 +1,6 @@
-export type FileFormatType = "generate-shell-script" | "gradle"
+import { parseDocument, visit } from "yaml";
+import { Pair, Scalar, visitorFn, YAMLParseError } from 'yaml';
+export type FileFormatType = "generate-shell-script" | "gradle" | "buf-gen-yaml"
 export type Handler = (contents: string, apiCommit: string) => [string, boolean]
 
 export const fileFormatHandlers: Record<FileFormatType, Handler> = {
@@ -22,4 +24,26 @@ export const fileFormatHandlers: Record<FileFormatType, Handler> = {
     const updatedContents = contents.replace(regex, `def authzedProtoCommit = "${apiCommit}"`);
     return [updatedContents, contents !== updatedContents]
   },
+  'buf-gen-yaml': (contents: string, apiCommit: string) => {
+      let doc
+      try{
+          doc = parseDocument(contents)
+      } catch (e) {
+          if (e instanceof YAMLParseError) {
+              throw new Error(`Could not parse buf.gen.yaml: ${e.message}`, { cause: e })
+          }
+          throw e
+      }
+      visit(doc, {
+          Pair: (((_, pair: Pair<Scalar<string>, Scalar<string>>) => {
+              if (pair.key.value === "module") {
+                  if (pair.value) {
+                      pair.value.value = pair.value?.value.replace(/:.*$/, `:${apiCommit}`)
+                  }
+              }
+          }) as visitorFn<Pair>)
+      })
+      const updated = doc?.toString() || ""
+      return [updated, contents !== updated]
+  }
 };

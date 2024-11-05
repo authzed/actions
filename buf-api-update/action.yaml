@@ -13,7 +13,7 @@ inputs:
   file-format:
     description: "The file format of the spec-path"
     required: false
-    default: "generate-shell-script"  # One of: "generate-shell-script", "gradle"
+    default: "generate-shell-script"  # One of: "generate-shell-script", "gradle", "buf-gen-yml"
 outputs:
   updated:
     description: "'true' if the API was updated"

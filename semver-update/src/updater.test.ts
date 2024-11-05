@@ -1,4 +1,5 @@
 import {performVersionUpdate} from '../src/updater'
+import { describe, it, expect } from 'vitest'
 
 describe('performVersionUpdate', () => {
     it('raises exception for a non-matching regex', () => {
