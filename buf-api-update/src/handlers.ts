@@ -1,5 +1,5 @@
 import { parseDocument, visit } from "yaml";
-import type { Pair, Scalar, visitorFn } from 'yaml';
+import { Pair, Scalar, visitorFn, YAMLParseError } from 'yaml';
 export type FileFormatType = "generate-shell-script" | "gradle" | "buf-gen-yaml"
 export type Handler = (contents: string, apiCommit: string) => [string, boolean]
 
@@ -25,7 +25,15 @@ export const fileFormatHandlers: Record<FileFormatType, Handler> = {
     return [updatedContents, contents !== updatedContents]
   },
   'buf-gen-yaml': (contents: string, apiCommit: string) => {
-      const doc = parseDocument(contents)
+      let doc
+      try{
+          doc = parseDocument(contents)
+      } catch (e) {
+          if (e instanceof YAMLParseError) {
+              throw new Error(`Could not parse buf.gen.yaml: ${e.message}`, { cause: e })
+          }
+          throw e
+      }
       visit(doc, {
           Pair: (((_, pair: Pair<Scalar<string>, Scalar<string>>) => {
               if (pair.key.value === "module") {
@@ -35,7 +43,7 @@ export const fileFormatHandlers: Record<FileFormatType, Handler> = {
               }
           }) as visitorFn<Pair>)
       })
-      const updated = doc.toString()
+      const updated = doc?.toString() || ""
       return [updated, contents !== updated]
   }
 };
