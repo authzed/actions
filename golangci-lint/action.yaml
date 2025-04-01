@@ -13,10 +13,8 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: "golangci/golangci-lint-action@v4"
+    - uses: "golangci/golangci-lint-action@v7"
       with:
         working-directory: "${{ inputs.working_directory }}"
         args: "${{ inputs.args }}"
-        version: "v1.61.0"
-        skip-pkg-cache: true
-        skip-build-cache: false
+        version: "v2.0.2"
