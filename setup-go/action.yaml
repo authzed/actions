@@ -36,4 +36,4 @@ runs:
       if: "inputs.download == 'true'"
       working-directory: "${{ inputs.working_directory }}"
       shell: "bash"
-      run: "[ -d './magefiles' ] && (cd './magefiles' && go mod download)"
+      run: "[ -d './magefiles' ] && (cd './magefiles' && go mod download) || true"
