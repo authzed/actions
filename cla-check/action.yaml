@@ -23,4 +23,4 @@ runs:
         path-to-signatures: "v2/signatures.json"
         path-to-document: "https://github.com/authzed/cla/blob/main/v2/icla.md"
         branch: "main"
-        allowlist: "authzedbot,AuthzedApprover,dependabot[bot],github-actions[bot],renovate-bot,snyk-bot"
+        allowlist: "authzedbot,dependabot[bot],github-actions[bot],renovate-bot,snyk-bot"
