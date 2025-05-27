@@ -4,7 +4,7 @@ description: "Download and install Mage"
 inputs:
   version:
     description: "Version of Mage to install"
-    default: "1.15.0"
+    default: "v1.15.0"
     required: false
 runs:
   using: "composite"
