@@ -18,5 +18,3 @@ runs:
         working-directory: "${{ inputs.working_directory }}"
         args: "${{ inputs.args }}"
         version: "v2.1.6"
-        skip-pkg-cache: true
-        skip-build-cache: false

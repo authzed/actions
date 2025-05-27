@@ -14,7 +14,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: "bufbuild/buf-setup-action@v1"
+    - uses: "bufbuild/buf-action@v1"
       with:
         version: "${{ inputs.version }}"
         github_token: "${{ inputs.github_token }}"
