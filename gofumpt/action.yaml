@@ -22,10 +22,10 @@ runs:
       run: |
         if which gofumpt > /dev/null; then
           echo "found gofumpt version $(gofumpt --version)"
-          echo "::set-output name=version::$(gofumpt --version)"
+          echo "name=version::$(gofumpt --version)" >> $GITHUB_OUTPUT
         else
           go install mvdan.cc/gofumpt@${{ inputs.version }}
-          echo "::set-output name=version::$(gofumpt --version)"
+          echo "name=version::$(gofumpt --version)" >> $GITHUB_OUTPUT
         fi
     - name: "Run Gofumpt"
       shell: "bash"
