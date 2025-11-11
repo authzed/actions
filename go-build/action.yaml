@@ -1,12 +1,15 @@
 ---
 name: "Go - Build"
 description: |
-  This action runs `go build` over the cmd directory and then verifies
-  that there are no differences from running the tool.
+  This action runs `go build` over the cmd directory.
 inputs:
   working_directory:
     description: "The directory with the root of the project"
     default: "."
+    required: false
+  ldflags:
+    description: "Optional ldflags to pass to go build (e.g., '-X main.version=1.0.0')"
+    default: ""
     required: false
 runs:
   using: "composite"
@@ -14,4 +17,9 @@ runs:
     - name: "Run Go Build"
       shell: "bash"
       working-directory: "${{ inputs.working_directory }}"
-      run: "go build ./cmd/..."
+      run: |
+        if [ -n "${{ inputs.ldflags }}" ]; then
+          go build -ldflags="${{ inputs.ldflags }}" ./cmd/...
+        else
+          go build ./cmd/...
+        fi
