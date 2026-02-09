@@ -15,7 +15,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: "authzed/markdown-lint-action@v1"
+    - uses: "authzed/markdown-lint-action@main"
       with:
         config: "${{ inputs.working_directory }}/.markdownlint.yaml"
         args: "${{ inputs.working_directory }} ${{ inputs.args }}"
