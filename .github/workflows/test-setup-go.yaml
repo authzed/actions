@@ -1,0 +1,41 @@
+---
+name: "Test setup-go"
+on:  # yamllint disable-line rule:truthy
+  push:
+    branches:
+      - "main"
+  pull_request:
+    paths: ["setup-go/**"]
+jobs:
+  test-default:
+    name: "Test - root directory"
+    runs-on: "ubuntu-latest"
+    steps:
+      - uses: "actions/checkout@v6"
+      - uses: "./setup-go"
+        with:
+          download: "false"
+      - run: "go version"
+
+  test-subdirectory:
+    name: "Test - subdirectory"
+    runs-on: "ubuntu-latest"
+    steps:
+      - uses: "actions/checkout@v6"
+      - run: "mkdir -p subproject && cp go.mod go.sum subproject/"
+      - uses: "./setup-go"
+        with:
+          working_directory: "./subproject"
+          download: "false"
+      - run: "go version"
+
+  test-explicit-version:
+    name: "Test - explicit go-version"
+    runs-on: "ubuntu-latest"
+    steps:
+      - uses: "actions/checkout@v6"
+      - uses: "./setup-go"
+        with:
+          go-version: "1.24"
+          download: "false"
+      - run: "go version"

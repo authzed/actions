@@ -3,10 +3,10 @@ name: "Setup Go environment"
 description: "Setup a Go environment and add it to the PATH (with caching!)"
 inputs:
   go-version:
-    description: "The Go version to download (if necessary) and use. Supports semver spec and ranges."
-    default: "1.26.2"
+    description: "The Go version to download (if necessary) and use. Supports semver spec and ranges. If empty, the version is read from go-version-file."
   go-version-file:
-    description: "Path to the go.mod or go.work file."
+    description: "Path to the go.mod or go.work file, relative to working_directory."
+    default: "go.mod"
   cache-dependency-path:
     description: "Used to specify the path to a dependency file - go.sum"
     default: "**/go.sum"
@@ -24,7 +24,7 @@ runs:
     - uses: "actions/setup-go@v6"
       with:
         go-version: "${{ inputs.go-version }}"
-        go-version-file: "${{ inputs.go-version-file }}"
+        go-version-file: "${{ !inputs.go-version && inputs.go-version-file && format('{0}/{1}', inputs.working_directory, inputs.go-version-file) || '' }}"
         cache-dependency-path: "${{ inputs.cache-dependency-path }}"
         cache: "true"
     - name: "Run Go Mod Download"
