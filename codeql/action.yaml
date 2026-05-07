@@ -1,11 +1,16 @@
 ---
 name: "CodeQL - Analyze"
 description: "This action analyzes the working tree with CodeQL."
+inputs:
+  language:
+    description: "Language to analyze. Defaults to go."
+    required: false
+    default: "go"
 runs:
   using: "composite"
   steps:
     - uses: "github/codeql-action/init@v4"
       with:
-        languages: "${{ matrix.language }}"
+        languages: "${{ language }}"
     - uses: "github/codeql-action/autobuild@v4"
     - uses: "github/codeql-action/analyze@v4"
