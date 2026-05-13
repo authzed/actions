@@ -10,3 +10,4 @@ rules:
   line-length: "disable"
 ignore: |
   **/node_modules/**
+  **/pnpm-lock.yaml
