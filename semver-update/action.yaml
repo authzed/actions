@@ -13,7 +13,7 @@ inputs:
   version-change:
     description: "The portion of the version to bump"
     required: false
-    default: "minor"  # One of: "major", "minor", "package", or a particular version (to set it explicitly)
+    default: "minor" # One of: "major", "minor", "package", or a particular version (to set it explicitly)
 runs:
   using: "node20"
   main: "dist/index.js"
