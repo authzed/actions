@@ -3,9 +3,9 @@ name: "Setup Go Jsonnet"
 description: "Download and install Go Jsonnet"
 inputs:
   version:
-    description: "Version of Jsonnet to install. Default: `latest`"
+    description: "Version of Jsonnet to install. Default: `v0.21.0`"
     required: false
-    default: "latest"
+    default: "v0.21.0"
 runs:
   using: "composite"
   steps:
