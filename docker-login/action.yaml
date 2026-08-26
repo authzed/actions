@@ -14,7 +14,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: "docker/login-action@v3"
+    - uses: "docker/login-action@v4"
       with:
         registry: "quay.io"
         username: "authzed+github_actions"
@@ -24,7 +24,7 @@ runs:
         registry: "ghcr.io"
         username: "${{ github.actor }}"
         password: "${{ inputs.github_token }}"
-    - uses: "docker/login-action@v3"
+    - uses: "docker/login-action@v4"
       with:
         username: "authzedbot"
         password: "${{ inputs.dockerhub_token }}"
