@@ -7,6 +7,10 @@ inputs:
     default: "1.26.9"
   go-version-file:
     description: "Path to the go.mod or go.work file."
+  cache:
+    description: "Whether to restore and save the built-in Go module and build caches."
+    default: "true"
+    required: false
   cache-dependency-path:
     description: "Used to specify the path to a dependency file - go.sum"
     default: "**/go.sum"
@@ -26,7 +30,7 @@ runs:
         go-version: "${{ inputs.go-version }}"
         go-version-file: "${{ inputs.go-version-file }}"
         cache-dependency-path: "${{ inputs.cache-dependency-path }}"
-        cache: "true"
+        cache: "${{ inputs.cache }}"
     - name: "Run Go Mod Download"
       if: "inputs.download == 'true'"
       working-directory: "${{ inputs.working_directory }}"
