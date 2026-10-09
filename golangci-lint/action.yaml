@@ -6,6 +6,10 @@ inputs:
     description: "golangci-lint command line arguments"
     default: ""
     required: false
+  install-only:
+    description: "Install golangci-lint without running lint checks."
+    default: "false"
+    required: false
   working_directory:
     description: "The directory with the root of the project"
     default: "."
@@ -17,4 +21,5 @@ runs:
       with:
         working-directory: "${{ inputs.working_directory }}"
         args: "${{ inputs.args }}"
+        install-only: "${{ inputs.install-only }}"
         version: "v2.12.2"
