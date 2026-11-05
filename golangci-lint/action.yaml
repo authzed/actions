@@ -22,4 +22,4 @@ runs:
         working-directory: "${{ inputs.working_directory }}"
         args: "${{ inputs.args }}"
         install-only: "${{ inputs.install-only }}"
-        version: "v2.12.2"
+        version: "v2.15.0"
