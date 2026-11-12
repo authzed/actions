@@ -22,6 +22,10 @@ inputs:
     description: "The directory with the root of the project"
     default: "."
     required: false
+  download-attempts:
+    description: "How many times to try go mod download before failing. A module proxy error such as a reset stream otherwise fails the job."
+    default: "3"
+    required: false
 runs:
   using: "composite"
   steps:
@@ -31,13 +35,42 @@ runs:
         go-version-file: "${{ inputs.go-version-file }}"
         cache-dependency-path: "${{ inputs.cache-dependency-path }}"
         cache: "${{ inputs.cache }}"
+    # With a comma, the go command falls back to the next source only when the
+    # proxy answers 404 or 410. With a pipe it falls back on any error, so a reset
+    # stream or a timeout from proxy.golang.org is fetched from the origin instead
+    # of failing the job. A GOPROXY the caller sets is left as it is.
+    - name: "Configure Module Proxy Fallback"
+      shell: "bash"
+      run: |
+        if [ -z "${GOPROXY:-}" ]; then
+          echo "GOPROXY=https://proxy.golang.org|direct" >> "$GITHUB_ENV"
+        fi
     - name: "Run Go Mod Download"
       if: "inputs.download == 'true'"
       working-directory: "${{ inputs.working_directory }}"
       shell: "bash"
-      run: "go mod download"
+      env:
+        ATTEMPTS: "${{ inputs.download-attempts }}"
+      run: |
+        for attempt in $(seq 1 "$ATTEMPTS"); do
+          go mod download && exit 0
+          echo "::warning::go mod download failed (attempt $attempt of $ATTEMPTS)"
+          sleep $((attempt * 10))
+        done
+        exit 1
     - name: "Run Magefiles Go Mod Download"
       if: "inputs.download == 'true'"
       working-directory: "${{ inputs.working_directory }}"
       shell: "bash"
-      run: "[ -d './magefiles' ] && (cd './magefiles' && go mod download) || true"
+      env:
+        ATTEMPTS: "${{ inputs.download-attempts }}"
+      run: |
+        [ -d './magefiles' ] || exit 0
+        cd './magefiles'
+        for attempt in $(seq 1 "$ATTEMPTS"); do
+          go mod download && exit 0
+          echo "::warning::magefiles go mod download failed (attempt $attempt of $ATTEMPTS)"
+          sleep $((attempt * 10))
+        done
+        # A magefiles download failure has never failed setup; keep it that way.
+        exit 0
