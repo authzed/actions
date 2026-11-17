@@ -2,7 +2,11 @@
 version: 2
 updates:
   - package-ecosystem: "github-actions"
-    directory: "/"
+    # "/" covers .github/workflows; "/*" covers each composite action's
+    # action.yaml in its own top-level directory.
+    directories:
+      - "/"
+      - "/*"
     schedule:
       interval: "monthly"
     labels: ["area/dependencies"]

@@ -9,6 +9,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: "zendesk/setup-jsonnet@v16"
+    - uses: "zendesk/setup-jsonnet@74119dac8a540c99167a65f14aa1ee99ff143ec2"  # v16
       with:
         version: "${{ inputs.version }}"

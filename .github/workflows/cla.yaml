@@ -14,7 +14,12 @@ jobs:
     name: "Check Signature"
     runs-on: "ubuntu-latest"
     steps:
-      - uses: "authzed/actions/cla-check@main"
+      # Checks out the default/base branch (never the PR head), so the
+      # cla-check action below is trusted code from this repo.
+      - uses: "actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1"  # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: "./cla-check"
         with:
           github_token: "${{ secrets.GITHUB_TOKEN }}"
           cla_assistant_token: "${{ secrets.CLA_ASSISTANT_ACCESS_TOKEN }}"

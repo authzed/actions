@@ -14,7 +14,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: "bufbuild/buf-action@v1"
+    - uses: "bufbuild/buf-action@37ac33d8960807670a6e9719080e885197b09cc6"  # v1.7.0
       with:
         version: "${{ inputs.version }}"
         github_token: "${{ inputs.github_token }}"
@@ -22,6 +22,6 @@ runs:
       shell: "bash"
       run: "./buf.gen.yaml"
     - name: "Verify Buf Generate"
-      uses: "chainguard-dev/actions/nodiff@main"
+      uses: "chainguard-dev/actions/nodiff@d496b2ab65497cac13d77ccd5038b8aae7e8c43b"  # v1.8.2
       with:
         fixup-command: "./buf.gen.yaml"
