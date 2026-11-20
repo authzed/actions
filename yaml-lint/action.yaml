@@ -15,7 +15,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: "ibiqlik/action-yamllint@v3"
+    - uses: "ibiqlik/action-yamllint@2576378a8e339169678f9939646ee3ee325e845c"  # v3.1.1
       with:
         file_or_dir: "${{ inputs.working_directory }}"
         config_file: "${{ inputs.working_directory }}/${{ inputs.config_file }}"

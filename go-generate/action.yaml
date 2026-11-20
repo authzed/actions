@@ -16,6 +16,6 @@ runs:
       working-directory: "${{ inputs.working_directory }}"
       run: "go generate ./..."
     - name: "Verify Go Generate"
-      uses: "chainguard-dev/actions/nodiff@main"
+      uses: "chainguard-dev/actions/nodiff@d496b2ab65497cac13d77ccd5038b8aae7e8c43b"  # v1.8.2
       with:
         fixup-command: "go generate"
